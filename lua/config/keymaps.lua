@@ -24,8 +24,14 @@ vim.keymap.set("n", "<leader>r", function()
   vim.cmd("edit")
 end, { desc = "Ruff fix current file" })
 
-
 vim.keymap.set("n", "<leader>R", function()
   vim.cmd("silent !ruff check --fix")
   vim.cmd("edit")
 end, { desc = "Ruff fix all files" })
+
+-- Inlay hint toggle
+vim.keymap.set("n", "<leader>ih", function()
+  local bufnr = vim.api.nvim_get_current_buf()
+  local enabled = vim.lsp.inlay_hint.is_enabled({ bufnr = bufnr })
+  vim.lsp.inlay_hint.enable(not enabled, { bufnr = bufnr })
+end, { desc = "Toggle inlay hints" })
